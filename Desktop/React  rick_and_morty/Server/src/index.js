@@ -1,5 +1,6 @@
 const http = require("http");
-const data = require("./utils/data")
+// const data = require("./utils/data")
+const getCharById = require("./controllers/getCharById")
 
 const PORT = 3001;
 
@@ -11,14 +12,19 @@ http
 
     const { url } = req;
 
-    if (url.includes("/rickandmorty/character/")) {
-      const id = url.split("/").at(-1);
-      const character = data.find((char)=> char.id == id)
-      
-      
-      res.end(JSON.stringify(character));
+    if(url.includes("/rickandmorty/character/")){
+      let id = url.split("/").at(-1)
+      getCharById(res,id)
     }
-    else res.end("Error ruta no encontrada")
+
+    // if (url.includes("/rickandmorty/character/")) {
+    //   let id = url.split("/").at(-1);
+    //   let character = data.find((char)=> char.id ===  Number(id))
+      
+      
+    //   res.end(JSON.stringify(character));
+    // }
+    // else res.end("Error ruta no encontrada")
     
   })
   .listen(PORT, "localhost");
